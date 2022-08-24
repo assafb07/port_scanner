@@ -23,6 +23,7 @@ scan_time_out = 0.7
 fast_scan = 0.1
 
 def scan(start, end, target, last_port, event):
+    time.sleep(1)
     global counter
     global scan_time_out
     print (scan_time_out)
