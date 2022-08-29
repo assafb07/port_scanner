@@ -26,16 +26,11 @@ def scan(start, end, target, last_port, event):
     time.sleep(1)
     global counter
     global scan_time_out
-    print (scan_time_out)
     text_box.delete('1.0', END)
     low_box.delete('1.0', END)
     print_here = 1
     counter +=1
 
-#    if counter == 1:
-#        text_box.insert(1.0, "scanning...\n")
-#        text_box.tag_add("left", 1.0, "end")
-#        text_box.place(x=10, y=y_place_box)
 
     for port in range(start, end):
 
@@ -82,7 +77,7 @@ def check_ip(scan_speed):
     target = "0.0.0.0"
     global scan_time_out
     scan_time_out = scan_speed
-    print (scan_time_out)
+
     ip_01 = ip_1.get()
     ip_02 = ip_2.get()
     ip_03 = ip_3.get()
@@ -141,10 +136,21 @@ def stop_scan():
     scan_time_out = 0.7
     event.set()
 
+def onclick(event):
+    print("You clicked the button")
+    check_ip(scan_time_out)
+
+def escape_key(event):
+    stop_scan()
+
+
 top = tk.Tk()
 top.geometry("349x475")
 top.configure(bg = frame_bg)
 top.title("Port Scanner @ Assaf.B")
+top.resizable(False, False)
+
+
 
 byte_data = base64.b64decode(logo)
 image_data = BytesIO(byte_data)
@@ -190,6 +196,7 @@ low_box.insert(1.0, "\n\n\n\n\n\n\n\n\n\n\n\t\tPython code @assaf bahar")
 low_box.tag_add("left", 1.0, "end")
 low_box.place(x=10, y=260)
 
-
+top.bind('<Return>', onclick)
+top.bind('<Escape>', escape_key)
 
 top.mainloop()
